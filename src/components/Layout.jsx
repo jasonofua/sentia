@@ -2,22 +2,35 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { IoChatbubbleEllipsesOutline, IoCompassOutline } from "react-icons/io5";
+import { FaArrowUpLong } from "react-icons/fa6";
+import { FcBrokenLink } from "react-icons/fc";
+import { BiWallet } from "react-icons/bi";
+import { BsFileCheck } from "react-icons/bs";
+import { TbBrandUbuntu } from "react-icons/tb";
+import { PiCoinsThin } from "react-icons/pi";
+import { FiSettings } from "react-icons/fi";
+
+
+
+
+
 
 const Layout = ({ children }) => {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(pathname === '/browser' ? 'browser' : 'chat');
 
   return (
-    <div className="flex h-screen bg-light-gray">
+    <div className="flex gap-x-[25px] h-screen bg-gradient-to-b from-[#ffffff] from-60% to-[#E6E6E6] to-95%">
       {/* Sidebar */}
-      <div className="w-20 bg-white flex flex-col items-center py-6 border-r border-light-gray">
-        <div className="mb-10">
+      <div className="w-20 bg-white flex flex-col items-center py-6 pt-[30px]">
+        <div className="mb-[30px]">
           <Link href="/">
-            <Image src="/logo.svg" alt="Sentia Logo" width={36} height={36} />
+            <Image src="/logo-15.svg" alt="Sentia Logo" width={36} height={36} />
           </Link>
         </div>
 
-        <nav className="flex flex-col items-center space-y-8 flex-grow">
+        <nav className="flex flex-col items-center gap-y-[20px] flex-grow">
           <SidebarItem icon="chat" label="Chat" active={pathname === '/chat'} />
           <SidebarItem icon="tasks" label="Tasks" active={pathname === '/tasks'} />
           <SidebarItem icon="flows" label="Flows" active={pathname === '/flows'} />
@@ -29,67 +42,70 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Navigation */}
-        <div className="h-16 bg-white border-b border-light-gray flex items-center justify-between px-4">
-          <div className="flex space-x-2">
-            <Link href="/chat">
+        <div className="h-16 bg-white flex items-center justify-between px-[20px] py-[15px]">
+          <div className="flex mx-auto border p-[4px] rounded-[20px]">
+            <Link href="/chat" className=' no-underline text-[14px] font-semibold'>
               <button
-                className={`px-4 py-2 ${activeTab === 'chat'
-                    ? 'bg-gradient-to-r from-primary to-secondary text-white'
-                    : 'bg-white text-gray-500'
-                  } rounded-full flex items-center`}
+                className={`px-[24px] py-[8px] border-0 no-underline text-[12px] font-semibold ${activeTab === 'chat'
+                  ? 'bg-gradient-to-r from-[#0E5DFA] to-[#EC560A] text-[#fff]'
+                  : 'bg-[#fff] text-[#AAA7A3]'
+                  } rounded-[16px] w-[128px] flex justiify-center items-center cursor-pointer`}
                 onClick={() => setActiveTab('chat')}
               >
-                <span className="mr-2">💬</span>
+                <span className="mr-[4px] text-[18px]"><IoChatbubbleEllipsesOutline /></span>
                 Chat
               </button>
             </Link>
-            <Link href="/browser">
+            <Link href="/browser" className=' no-underline text-[14px] font-semibold'>
               <button
-                className={`px-4 py-2 ${activeTab === 'browser'
-                    ? 'bg-gradient-to-r from-primary to-secondary text-white'
-                    : 'bg-white text-gray-500'
-                  } rounded-full flex items-center`}
+                className={`px-[24px] py-[8px] border-0 no-underline text-[12px] font-semibold ${activeTab === 'browser'
+                  ? 'bg-gradient-to-r from-[#0E5DFA] to-[#EC560A] text-[#fff]'
+                    : 'bg-[#fff] text-[#AAA7A3]'
+                  } rounded-[16px] w-[128px] flex justiify-center items-center cursor-pointer`}
                 onClick={() => setActiveTab('browser')}
               >
-                <span className="mr-2">🌐</span>
+                <span className="mr-[4px] text-[20px]"><IoCompassOutline /></span>
                 Browser
               </button>
             </Link>
           </div>
 
           <div className="flex items-center">
-            <div className="flex items-center bg-white border border-light-gray rounded-lg px-3 py-1">
-              <span className="text-gray-600">0xA4...F5D2</span>
-              <button className="ml-2 text-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 8V5L21 10L16 15V12H8V15L3 10L8 5V8H16Z" fill="currentColor" />
-                </svg>
+            <div className="flex items-center bg-white border border-light-gray rounded-[16px] p-[5px]">
+              <button className="mr-[8px] h-[32px] w-[32px] rounded-[10px] text-[24px] text-[#EC560A] cursor-pointer flex justify-center items-center border-0 bg-[#EC560A26]">
+                <BiWallet />
+              </button>
+              <span className="text-gray-600 text-[12px]">0xA4...F5D2</span>
+              <button className="ml-[8px] h-[32px] w-[32px] rounded-[10px] text-[24px] text-[#EC560A] cursor-pointer bg-transparent flex justify-center items-center border-0">
+                <FcBrokenLink />
               </button>
             </div>
           </div>
         </div>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-y-scroll scrollbar-hidden border border-[#E6E6E6] rounded-[30px] h-[50%] bg-main p-[30px]">
           {children}
         </div>
 
         {/* Bottom Action Bar */}
-        <div className="h-20 bg-light-gray border-t border-light-gray flex items-center justify-center space-x-4 px-4">
-          <ActionButton text="Buy 200 USDC worth of WIF on Raydium." />
-          <ActionButton text="Swap 150 USDC for SOL on Jupiter." />
-          <ActionButton text="Send 0.5 SOL to 0xA4...F5D2." />
-          <ActionButton text="Place a limit order to buy 0.5 SOL at $85." />
+        <div className="bg-light-gray flex flex-col gap-y-[20px] px-4 mt-[20px] pb-[4px]">
+          <div className="flex items-center justify-between gap-x-[10px] w-9/12 mx-auto">
+            <ActionButton text="Buy 200 USDC worth of WIF on Raydium." />
+            <ActionButton text="Swap 150 USDC for SOL on Jupiter." />
+            <ActionButton text="Send 0.5 SOL to 0xA4...F5D2." />
+            <ActionButton text="Place a limit order to buy 0.5 SOL at $85." />
+          </div>
 
-          <div className="absolute bottom-5 right-5">
-            <div className="relative">
+          <div className="w-6/12 mx-auto flex flex-row justify-center">
+            <div className="relative px-[10px] py-[6px] rounded-full w-full flex bg-[#fff]">
               <input
                 type="text"
                 placeholder="Describe a trade action"
-                className="w-64 px-4 py-2 rounded-full border border-light-gray"
+                className="flex flex-1 text-[12px] border-0 outline-0 mr-[10px]"
               />
-              <button className="absolute right-0 top-0 h-full px-3 bg-gradient-to-r from-primary to-secondary rounded-r-full text-white">
-                ↑
+              <button type='button' className="w-[58px] h-[36px] px-3 cursor-pointer flex justify-center items-center bg-gradient-to-r from-[#0E5DFA] to-[#EC560A] rounded-full text-[#fff] text-[12px] border-0">
+                <FaArrowUpLong />
               </button>
             </div>
           </div>
@@ -101,26 +117,26 @@ const Layout = ({ children }) => {
 
 const SidebarItem = ({ icon, label, active }) => {
   const iconMap = {
-    chat: "💬",
-    tasks: "✓",
-    flows: "⟳",
-    billing: "💰",
-    settings: "⚙️",
+    chat: <IoChatbubbleEllipsesOutline />,
+    tasks: <BsFileCheck />,
+    flows: <TbBrandUbuntu />,
+    billing: <PiCoinsThin />,
+    settings: <FiSettings />,
   };
 
   return (
-    <Link href={`/${label.toLowerCase()}`} className="flex flex-col items-center">
-      <div className={`p-3 rounded-lg ${active ? 'bg-light-gray' : 'hover:bg-light-gray'}`}>
-        <span className="text-xl">{iconMap[icon]}</span>
+    <Link href={`/${label.toLowerCase()}`} className="flex flex-col items-center gap-[4px] no-underline">
+      <div className={`w-[40px] h-[40px] flex justify-center items-center rounded-lg ${active ? 'bg-[#F6F6F6]' : 'hover:bg-light-gray bg-[#F6F6F6]'}`}>
+        <span className={`text-[20px] ${active ? 'active-text-gradient' : 'text-[#AAA7A3]'}`}>{iconMap[icon]}</span>
       </div>
-      <span className={`text-xs mt-1 ${active ? 'text-primary' : 'text-gray-500'}`}>{label}</span>
+      <span className={`text-[12px] font-medium mt-1 ${active ? 'active-text-gradient' : 'text-[#AAA7A3]'}`}>{label}</span>
     </Link>
   );
 };
 
 const ActionButton = ({ text }) => {
   return (
-    <button className="px-4 py-2 bg-white rounded-lg text-sm text-gray-700 hover:bg-light-gray transition-colors">
+    <button type='button' className="p-[10px] cursor-pointer bg-[#fff] border-0 rounded-full text-[10px] font-medium text-[#4D4C4A] transition-colors">
       {text}
     </button>
   );
